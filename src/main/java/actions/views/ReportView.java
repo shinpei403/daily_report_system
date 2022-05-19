@@ -55,9 +55,10 @@ public class ReportView {
 
 //    出勤時間
 
-    private String attendance_time;
+    private String attendanceTime;
 
 //    退勤時間
 
-    private String leave_time;
+    private String leaveTime;
+
 }

@@ -2,6 +2,7 @@ package actions;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 //日報に関する処理を行うActionクラス
@@ -60,7 +61,7 @@ public class ReportAction extends ActionBase {
         forward(ForwardConst.FW_REP_INDEX);
     }
 
-//    新規一覧画面を表示する
+//    新規登録画面を表示する
 
     public void entryNew() throws ServletException, IOException {
 
@@ -70,6 +71,9 @@ public class ReportAction extends ActionBase {
         ReportView rv = new ReportView();
         rv.setReportDate(LocalDate.now());
         putRequestScope(AttributeConst.REPORT, rv); //日付のみ設定済みの日報インスタンス
+
+        List<String> worktime = makeWorktimeList();
+        putRequestScope(AttributeConst.REP_WORKTIME, worktime);
 
         //新規登録画面を表示
         forward(ForwardConst.FW_REP_NEW);
@@ -103,7 +107,9 @@ public class ReportAction extends ActionBase {
                     getRequestParam(AttributeConst.REP_TITLE),
                     getRequestParam(AttributeConst.REP_CONTENT),
                     null,
-                    null);
+                    null,
+                    getRequestParam(AttributeConst.REP_ATTENDANCE_TIME),
+                    getRequestParam(AttributeConst.REP_LEAVE_TIME));
 
             //日報情報登録
             List<String> errors = service.create(rv);
@@ -215,6 +221,43 @@ public class ReportAction extends ActionBase {
 
             }
         }
+    }
+
+//    00:00～23;30のStringのリストを生成するメッソド
+
+    public List<String> makeWorktimeList() {
+
+//        勤務時間のリスト
+        List<String> worktimeList = new ArrayList<String>();
+
+//        00:00 23:30
+
+        int i = 0;
+        int j = 0;
+
+        String worktime = null;
+
+        for (i = 0; i <= 23; i++) {
+
+            String hour = Integer.toString(i);
+
+            if (i < 10) {
+                hour = "0" + hour;
+            }
+
+            for (j = 0; j <= 1; j++) {
+                if (j == 0) {
+//                    00分
+                    worktime = hour + ":" + "00";
+                } else {
+//                    30分
+                    worktime = hour + ":" + "30";
+                }
+
+                worktimeList.add(worktime);
+            }
+        }
+        return worktimeList;
     }
 }
 

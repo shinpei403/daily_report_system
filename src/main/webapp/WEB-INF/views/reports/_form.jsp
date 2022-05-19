@@ -12,6 +12,7 @@
 
     </div>
 </c:if>
+
 <fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
 <label for="${AttributeConst.REP_DATE.getValue()}">日付</label><br />
 <input type="date" name="${AttributeConst.REP_DATE.getValue()}" value="<fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' />" />
@@ -28,6 +29,25 @@
 <label for="${AttributeConst.REP_CONTENT.getValue()}">内容</label><br />
 <textarea name="${AttributeConst.REP_CONTENT.getValue()}" rows="10" cols="50">${report.content}</textarea>
 <br /><br />
+
+
+<label for="${AttributeConst.REP_ATTENDANCE_TIME.getValue()}">出勤時間</label><br />
+<select name="${AttributeConst.REP_ATTENDANCE_TIME.getValue()}">
+    <c:forEach var="worklist" items="${worktime}">
+        <option ><c:out value="${worklist}"/></option>
+    </c:forEach>
+</select>
+<br /><br />
+
+<label for="${AttributeConst.REP_LEAVE_TIME.getValue()}">退勤時間</label><br />
+<select name="${AttributeConst.REP_LEAVE_TIME.getValue()}">
+    <c:forEach var="worklist" items="${worktime}">
+        <option ><c:out value="${worklist}"/></option>
+    </c:forEach>
+</select>
+<br /><br />
+
+
 <input type="hidden" name="${AttributeConst.REP_ID.getValue()}" value="${report.id}" />
 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 <button type="submit">投稿</button>

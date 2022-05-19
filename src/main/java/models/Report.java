@@ -95,14 +95,14 @@ public class Report {
     private LocalDateTime updatedAt;
 
 //    出勤時間
-
     @Column(name = JpaConst.REP_COL_ATTENDANCE_TIME, nullable = false)
-    private String attendance_time;
+    private String attendanceTime;
 
 //    退勤時間
-
     @Column(name = JpaConst.REP_COL_LEAVE_TIME, nullable = false)
-    private String leave_time;
+    private String leaveTime;
+
+
 
 
 }
