@@ -176,6 +176,9 @@ public class ReportAction extends ActionBase {
             putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
             putRequestScope(AttributeConst.REPORT, rv); //取得した日報データ
 
+            List<String> worktime = makeWorktimeList();
+            putRequestScope(AttributeConst.REP_WORKTIME, worktime);
+
             //編集画面を表示
             forward(ForwardConst.FW_REP_EDIT);
         }
