@@ -33,16 +33,16 @@
 
 <label for="${AttributeConst.REP_ATTENDANCE_TIME.getValue()}">出勤時間</label><br />
 <select name="${AttributeConst.REP_ATTENDANCE_TIME.getValue()}">
-    <c:forEach var="worklist" items="${worktime}">
-        <option ><c:out value="${worklist}"/></option>
+    <c:forEach var="worklist" items="${worktime}" varStatus="status">
+        <option value="${status.current}" <c:if test="${status.current == report.attendanceTime}"> selected</c:if>>${worklist}</option>
     </c:forEach>
 </select>
 <br /><br />
 
 <label for="${AttributeConst.REP_LEAVE_TIME.getValue()}">退勤時間</label><br />
 <select name="${AttributeConst.REP_LEAVE_TIME.getValue()}">
-    <c:forEach var="worklist" items="${worktime}">
-        <option ><c:out value="${worklist}"/></option>
+    <c:forEach var="worklist" items="${worktime}" varStatus="status">
+        <option value="${status.current}" <c:if test="${status.current == report.leaveTime}"> selected</c:if>>${worklist}</option>
     </c:forEach>
 </select>
 <br /><br />
